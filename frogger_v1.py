@@ -16,14 +16,9 @@ texto = font.render('quero morrer', True, (255,45,255))
 sapo_y_initial = (HEIGHT - sapo_height) 
 sapo_x = (WIDTH-sapo_width) / 2
 sapo_y = sapo_y_initial
-sapo_img = pygame.image.load('frogger/assets/img/sapo_med1.png').convert_alpha()
-sapo_speedx = 0
-sapo_speedy = 5
-
+sapo_img = pygame.image.load('frogger/assets/img/galinha.png').convert_alpha()
 
 game = True
-
-
 
 clock = pygame.time.Clock()
 FPS = 60
@@ -33,12 +28,20 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
-
+        # Verifica se apertou alguma tecla.
+        if event.type == pygame.KEYDOWN:
+            # Dependendo da tecla, altera a velocidade.
+            if event.key == pygame.K_LEFT:
+                sapo_x -= sapo_width
+            if event.key == pygame.K_RIGHT:
+                sapo_x += sapo_width
+            if event.key == pygame.K_UP:
+                sapo_y -= sapo_height
+            if event.key == pygame.K_DOWN:
+                sapo_y += sapo_height
+        # Verifica se soltou alguma tecla.
         # ----- Atualiza estado do jogo
     # Atualizando a posição do meteoro
-    sapo_x += sapo_speedx
-    sapo_y -= sapo_speedy
-
     window.fill((55,147,88))
     window.blit(sapo_img, (sapo_x, sapo_y))
     pygame.display.update()
@@ -47,3 +50,5 @@ while game:
         sapo_y = sapo_y_initial
 
 pygame.quit()
+
+
