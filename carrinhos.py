@@ -1,4 +1,6 @@
 from random import *
+import pygame
+
 class carros:
     def __init__(self, groups, assets):
         car = ['frogger/assets/img/carro_verd.png', 'frogger/assets/img/carro_azul.png', 'frogger/assets/img/carro_verm.png', 'frogger/assets/img/carro_especial.png']
