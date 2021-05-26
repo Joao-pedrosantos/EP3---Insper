@@ -1,5 +1,5 @@
 from random import *
-class carros:
+class Carrinhos:
     def __init__(self, groups, assets):
         car = ['frogger/assets/img/carro_verd.png', 'frogger/assets/img/carro_azul.png', 'frogger/assets/img/carro_verm.png', 'frogger/assets/img/carro_especial.png']
         sorteio = randint(0,len(car)-1)
@@ -27,7 +27,7 @@ class carros:
         if car[sorteio] == 'frogger/assets/img/carro_especial.png':
             self.speedx = 20
 
-class pedra(pygame.sprite.Sprite):
+class Pedra(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -40,7 +40,7 @@ class pedra(pygame.sprite.Sprite):
         self.groups = groups
         self.assets = assets
 
-class tronco(pygame.sprite.Sprite):
+class Tronco(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -53,7 +53,7 @@ class tronco(pygame.sprite.Sprite):
         self.groups = groups
         self.assets = assets
     
-class carros(pygame.sprite.Sprite):
+class Carros(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
         casa = ['frogger/assets/img/casa_azul.png', 'frogger/assets/img/casa_verm.png', 'frogger/assets/img/casa_rosa.png']
         sorteio = randint(0,len(casa)-1)
