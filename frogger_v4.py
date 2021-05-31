@@ -161,9 +161,9 @@ assets['Spawnx'] = [
 800    
 ]
 
-#mixer.music.load('frogger/musica/Pitfall.mp3')
-#mixer.music.set_volume(0.2)
-#mixer.music.play(-1)
+mixer.music.load('frogger/musica/Pitfall.mp3')
+mixer.music.set_volume(0.2)
+mixer.music.play(-1)
 
 
 sapo_y_initial = (HEIGHT - sapo_height + 20)
