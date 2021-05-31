@@ -32,8 +32,9 @@ class Carros(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = assets['Spawnx'] [randint(0,len(assets["Spawnx"])-1)]
         self.rect.y = assets['Spawny'] [randint(0,len(assets["Spawny"])-1)]
-        self.speedx = randint(3, 10)
-        if self.rect.x == 800:
+        if self.rect.y == 750 or self.rect.y == 300 or self.rect.y == 160:
+            self.speedx = randint(3, 10)
+        else:
             self.speedx = randint(-10,-3)
             self.image = pygame.transform.flip(self.image, True, False)
         self.speedy = 0 
@@ -140,7 +141,7 @@ carro_azul_small,
 batmovel_small
 ]
 
-background = pygame.image.load('frogger/assets/img/background_lvl1.png').convert()
+background = pygame.image.load('frogger/assets/img/background_nivel1.png').convert()
 
 assets['Background'] = [
 background    
@@ -213,6 +214,7 @@ tempo_em_s = 0
 #comeca jogo
 while game:
     tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
+    
     t = 150
     if tempo_vivo == FPS:
         tempo_em_s += 1
@@ -258,7 +260,7 @@ while game:
             if event.key == pygame.K_DOWN:
                 player.vy = 0 
 
-    while len(all_carros) < 50:
+    while len(all_carros) < 10:
         carrinho = Carros(assets)
         all_carros.add(carrinho)
         all_sprites.add(carrinho)
