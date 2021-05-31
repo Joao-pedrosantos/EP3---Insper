@@ -213,8 +213,9 @@ tempo_em_s = 0
 
 #comeca jogo
 while game:
+    nivel1 = 1
     tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
-    
+    nivel = font.render('Nível {0}'.format(nivel1), True, (255,0,0))
     t = 150
     if tempo_vivo == FPS:
         tempo_em_s += 1
@@ -277,7 +278,8 @@ while game:
     all_sprites.draw(window)
  
   
-    window.blit(tempo_v, (0,0)) 
+    window.blit(tempo_v, (0,0))
+    window.blit(nivel, (0,30))  
     pygame.display.update()
 
     tempo_vivo += 1
