@@ -2,6 +2,8 @@ from typing import get_origin
 import pygame
 from random import *
 from pygame import mixer
+
+
 pygame.init()
 pygame.mixer.init()
 sapo_width = 80
@@ -10,6 +12,12 @@ carro_width = 100
 carro_height = 80
 WIDTH = 750
 HEIGHT = 1000
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
 #Classes
 class Carros(pygame.sprite.Sprite):
     def __init__(self, assets):
@@ -45,18 +53,35 @@ class Galinha(pygame.sprite.Sprite):
         self.vx = 0
         self.assets = assets
         self.morta = 0
+<<<<<<< HEAD
     def matar(self):
         self.morta = 150
+=======
+
+    def matar(self):
+        self.morta = 150
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     def update(self):
         if self.morta <= 0:    
             self.rect.x += self.vx//3
             self.rect.y -= -(self.vy/3)
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
             if self.vx > 0:
                 self.image = pygame.transform.flip(sapo_img_small, False, False)
             elif self.vx < 0:
                 self.image = pygame.transform.flip(sapo_img_small, True, False)
+<<<<<<< HEAD
             if self.rect.bottom > HEIGHT:
                 self.rect.bottom = HEIGHT
+=======
+
+            if self.rect.bottom > HEIGHT:
+                self.rect.bottom = HEIGHT 
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
             if self.rect.right > WIDTH:
                 self.rect.right = WIDTH
             if self.rect.left < 0:
@@ -65,6 +90,11 @@ class Galinha(pygame.sprite.Sprite):
             self.morta -= 1
             self.rect.centerx = WIDTH / 2
             self.rect.bottom = HEIGHT - 10
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
 font = pygame.font.SysFont(None, 48)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('CUIDADO COM OS CARROS!!!')
@@ -118,6 +148,13 @@ assets['Spawnx'] = [
 ]
 assets['sound effects'] = [
 ]
+<<<<<<< HEAD
+=======
+
+assets['sound effects'] = [
+    
+]
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
 mixer.music.load('frogger/musica/Pitfall.mp3')
 mixer.music.set_volume(0.01)
 mixer.music.play(-1)
@@ -143,23 +180,46 @@ groups['all_players'] = all_players
 game = True
 font = pygame.font.SysFont(None, 48)
 keys_down = {}
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
 tempo_vivo = 0
 tempo_em_s = 0
 nivel1 = 1
 dificuldade = 1
 #comeca jogo
 while game:
+<<<<<<< HEAD
     tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
     nivel = font.render('Nível {0}'.format(nivel1), True, (255,0,0))
+=======
+    
+    tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
+    nivel = font.render('Nível {0}'.format(nivel1), True, (255,0,0))
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     if tempo_vivo == FPS:
         tempo_em_s += 1
         tempo_vivo = 0
     clock.tick(FPS)
     # Verifica se houve colisão entre galinha e carro
+<<<<<<< HEAD
+=======
+   
+
+
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
         # Verifica se apertou alguma tecla.
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player.vx -= sapo_width/2
@@ -169,6 +229,10 @@ while game:
                 player.vy -= sapo_height/2
             if event.key == pygame.K_DOWN:
                 player.vy += sapo_height/2
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -178,15 +242,29 @@ while game:
             if event.key == pygame.K_UP:
                 player.vy = 0
             if event.key == pygame.K_DOWN:
+<<<<<<< HEAD
                 player.vy = 0
+=======
+                player.vy = 0 
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     if dificuldade == 1:
         difc = 5
     else:
         difc = 5 + dificuldade*5
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     while len(all_carros) < difc:
         carrinho = Carros(assets)
         all_carros.add(carrinho)
         all_sprites.add(carrinho)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     if player.rect.top <= 0:
         dificuldade += 1
         nivel1 += 1
@@ -195,14 +273,28 @@ while game:
     # ----- Atualiza estado do jogo
     # Atualizando a posição do meteoro
     window.fill((0, 0, 0))  # Preenche com a cor branca
+<<<<<<< HEAD
     window.blit(assets['Background'][nivel1 - 1], (0, 0))
     all_sprites.update()
     hit = pygame.sprite.spritecollide(player, all_carros, True)
+=======
+    window.blit(background, (0, 0))
+  
+    all_sprites.update()
+
+
+    hit = pygame.sprite.spritecollide(player, all_carros, True)
+
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     if len(hit) > 0:
         player.matar()
         mixer.music.load('frogger/musica/mf.mp3')
         mixer.music.set_volume(0.1)
         mixer.music.play()
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     """ for carro in all_carros:    
         hits = pygame.sprite.spritecollide(carro, all_carros, True)
         for hit in hits:
@@ -210,8 +302,18 @@ while game:
                 carro.speedx = 5
                 hit.speedx = 5
  """
+<<<<<<< HEAD
     
     all_sprites.draw(window)
+=======
+   
+    
+    all_sprites.draw(window)
+    
+
+
+  
+>>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     window.blit(tempo_v, (0,0))
     window.blit(nivel, (0,30))  
     pygame.display.update()
