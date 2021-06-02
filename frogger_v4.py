@@ -12,8 +12,8 @@ carro_width = 100
 carro_height = 80
 
 
-WIDTH = 750
-HEIGHT = 1000
+WIDTH = 600
+HEIGHT = 800
 #linhas = HEIGHT/(sapo_height/2)
 #colunas = WIDTH/(sapo_width/2)
 
