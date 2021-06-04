@@ -17,6 +17,9 @@ barco_height = 80
 
 WIDTH = 750
 HEIGHT = 1000
+
+
+
 #Classes
 class Moedas(pygame.sprite.Sprite):
     def __init__(self,img):
@@ -61,6 +64,11 @@ class Carros(pygame.sprite.Sprite):
             600,
             300,
             15
+            ]
+        elif nivel1 ==5:
+            assets["Spawny"] = [ 
+            600,
+            160    
             ]
         self.rect.x = assets['Spawnx'] [randint(0,len(assets["Spawnx"])-1)]
         self.rect.y = assets['Spawny'] [randint(0,len(assets["Spawny"])-1)]
@@ -118,6 +126,13 @@ class Barcos(pygame.sprite.Sprite):
             450,
             160
             ]
+        elif nivel1 == 5:
+            assets["Spawnybarc"] = [ 
+            750,
+            450,
+            300,
+            15    
+            ]
         self.image = assets['Barco'] [randint(0,len(assets['Barco'])-1)]
         self.id = randint(1,100000)
         self.rect = self.image.get_rect()
@@ -141,6 +156,7 @@ class Barcos(pygame.sprite.Sprite):
 class Galinha(pygame.sprite.Sprite):
     def __init__(self, img):
         pygame.sprite.Sprite.__init__(self)
+
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.centerx = WIDTH / 2
@@ -149,18 +165,22 @@ class Galinha(pygame.sprite.Sprite):
         self.vx = 0
         self.assets = assets
         self.morta = 0
+
     def matar(self):
         self.morta = 150
+    
     def update(self):
         if self.morta <= 0:    
             self.rect.x += self.vx//3
             self.rect.y -= -(self.vy/3)
+            
             if self.vx > 0:
                 self.image = pygame.transform.flip(sapo_img_small, False, False)
             elif self.vx < 0:
                 self.image = pygame.transform.flip(sapo_img_small, True, False)
+
             if self.rect.bottom > HEIGHT:
-                self.rect.bottom = HEIGHT
+                self.rect.bottom = HEIGHT 
             if self.rect.right > WIDTH:
                 self.rect.right = WIDTH
             if self.rect.left < 0:
@@ -169,9 +189,12 @@ class Galinha(pygame.sprite.Sprite):
             self.morta -= 1
             self.rect.centerx = WIDTH / 2
             self.rect.bottom = HEIGHT - 10
+
+
 font = pygame.font.SysFont(None, 48)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('CUIDADO COM OS CARROS!!!')
+
 assets = {}
 carro_verm = pygame.image.load('frogger/assets/img/carro_verm.png').convert_alpha()
 carro_verd = pygame.image.load('frogger/assets/img/carro_verd.png').convert_alpha()
@@ -202,7 +225,7 @@ background1 = pygame.image.load('frogger/assets/img/background_nivel1.png').conv
 background2 = pygame.image.load('frogger/assets/img/background_nivel2.png').convert()
 background3 = pygame.image.load('frogger/assets/img/background_nivel3.png').convert()
 background4 = pygame.image.load('frogger/assets/img/background_nivel4.png').convert()
-#background5 = pygame.image.load('frogger/assets/img/background_nivel5.png').convert()
+background5 = pygame.image.load('frogger/assets/img/background_nivel5.png').convert()
 
 
 assets['Background'] = [
@@ -210,7 +233,7 @@ background1,
 background2,
 background3,
 background4,
-#background5    
+background5    
 ]
 
 assets['Spawnybarc'] = [
@@ -218,6 +241,7 @@ assets['Spawnybarc'] = [
 450,
 300    
 ]
+
 assets['Spawny'] = [
 300,
 160,
@@ -226,19 +250,15 @@ assets['Spawny'] = [
 750,
 450
 ]
+
 assets['Spawnx'] = [
 -50,
-800
+800    
 ]
-assets['sound effects'] = [
-]
-<<<<<<< HEAD
-=======
 
 assets['sound effects'] = [
     
 ]
-<<<<<<< HEAD
 """ mixer.music.load('frogger/musica/Pitfall.mp3')
 mixer.music.set_volume(0.01)
 mixer.music.play(-1) """
@@ -254,20 +274,24 @@ assets["Moeda"] = [
 #fotita
 moeda
 ]
-=======
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
-mixer.music.load('frogger/musica/Pitfall.mp3')
-mixer.music.set_volume(0.01)
-mixer.music.play(-1)
->>>>>>> 7c06d86b3d4bef92d6c12b0f04095e9a6f19a60c
 sapo_y_initial = (HEIGHT - sapo_height + 20)
 sapo_x = (WIDTH-sapo_width) / 2
 sapo_y = sapo_y_initial
+
 sapo_img = pygame.image.load('frogger/assets/img/galinha.png').convert_alpha()
+
+
+
+
+
 sapo_img_small = pygame.transform.scale(sapo_img, (sapo_width, sapo_height))
 lgalinha = sapo_img_small
+
+
 clock = pygame.time.Clock()
+
 FPS = 30
+
 player = Galinha(lgalinha)
 all_sprites = pygame.sprite.Group()
 all_carros = pygame.sprite.Group()
@@ -275,21 +299,27 @@ all_barcos = pygame.sprite.Group()
 all_players = pygame.sprite.Group()
 all_moedas = pygame.sprite.Group()
 all_sprites.add(player)
+
 groups = {}
+
 groups['all_sprites'] = all_sprites
 groups['all_carros'] = all_carros
 groups['all_barcos'] = all_barcos
 groups['all_players'] = all_players
 groups['all_moedas'] = all_moedas
 game = True
+
+
+
 font = pygame.font.SysFont(None, 48)
+
+
 keys_down = {}
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
+pla = ''
+with open('lideres.txt', 'rt') as placar:
+    pla = placar.readline()
+    
 tempo_vivo = 0
 tempo_em_s = 0
 nivel1 = 1
@@ -297,7 +327,6 @@ dificuldade = 1
 mort = 151
 #comeca jogo
 while game:
-<<<<<<< HEAD
     while len(all_moedas) != nivel1:
         moedinha = Moedas(moeda)
         all_moedas.add(moedinha)
@@ -305,49 +334,36 @@ while game:
     tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
     nivel = font.render('Nível {0}'.format(nivel1), True, (0,0,255))
     tem_m = font.render('Tempo de punição: {0}s'.format(round(mort/30),2), True, (255,0,0))
-=======
-<<<<<<< HEAD
-    tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
-    nivel = font.render('Nível {0}'.format(nivel1), True, (255,0,0))
-=======
-    
-    tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
-    nivel = font.render('Nível {0}'.format(nivel1), True, (255,0,0))
-    
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
->>>>>>> 7c06d86b3d4bef92d6c12b0f04095e9a6f19a60c
+    if len(pla) > 0:
+        melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
+    fim = font.render('Parabens! Voce levou {0} segundos!'.format(tempo_em_s), True, (255,0,0))
     if tempo_vivo == FPS:
         tempo_em_s += 1
         tempo_vivo = 0
+    
     clock.tick(FPS)
+
     # Verifica se houve colisão entre galinha e carro
-<<<<<<< HEAD
-=======
    
 
 
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
         # Verifica se apertou alguma tecla.
-<<<<<<< HEAD
-=======
     
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player.vx -= sapo_width/2
+
             if event.key == pygame.K_RIGHT:
                 player.vx += sapo_width/2
+
             if event.key == pygame.K_UP:
                 player.vy -= sapo_height/2
             if event.key == pygame.K_DOWN:
                 player.vy += sapo_height/2
-<<<<<<< HEAD
-=======
     
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -355,36 +371,32 @@ while game:
             if event.key == pygame.K_RIGHT:
                 player.vx = 0
             if event.key == pygame.K_UP:
-                player.vy = 0
+                player.vy = 0 
             if event.key == pygame.K_DOWN:
-<<<<<<< HEAD
-                player.vy = 0
-=======
                 player.vy = 0 
     
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     if dificuldade == 1:
         difc = 5
     else:
-        difc = 5 + dificuldade*5
-<<<<<<< HEAD
-=======
+        difc = 5 + dificuldade * 5
     
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
+    if difc > 25:
+        difc = 25
+
+    #if dificuldade ==5:
+      #  difc = 25
+    
     while len(all_carros) < difc:
         carrinho = Carros(assets,nivel1)
         all_carros.add(carrinho)
         all_sprites.add(carrinho)
-<<<<<<< HEAD
-=======
 
     if nivel1 > 1:
-        while len(all_barcos) < 5:
+        while len(all_barcos) < 2 * dificuldade:
             barcin = Barcos(assets,nivel1)
             all_barcos.add(barcin)
             all_sprites.add(barcin)
 
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     if player.rect.top <= 0:
         dificuldade += 1
         nivel1 += 1
@@ -392,35 +404,22 @@ while game:
         player.rect.bottom = HEIGHT - 10
         
     # ----- Atualiza estado do jogo
+    
     # Atualizando a posição do meteoro
     window.fill((0, 0, 0))  # Preenche com a cor branca
-<<<<<<< HEAD
     window.blit(assets['Background'][nivel1 - 1], (0, 0))
-=======
-<<<<<<< HEAD
-    window.blit(assets['Background'][nivel1 - 1], (0, 0))
-    all_sprites.update()
-    hit = pygame.sprite.spritecollide(player, all_carros, True)
-=======
-    window.blit(background, (0, 0))
->>>>>>> 7c06d86b3d4bef92d6c12b0f04095e9a6f19a60c
   
     all_sprites.update()
 
 
     hit = pygame.sprite.spritecollide(player, all_carros, True)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
->>>>>>> 7c06d86b3d4bef92d6c12b0f04095e9a6f19a60c
     if len(hit) > 0:
         mort = 150
         player.matar()
         """ mixer.music.load('frogger/musica/mf.mp3')
         mixer.music.set_volume(0.1)
-<<<<<<< HEAD
         mixer.music.play() """
     
 
@@ -433,13 +432,6 @@ while game:
         """ mixer.music.load('frogger/musica/mf.mp3')
         mixer.music.set_volume(0.1)
         mixer.music.play() """
-=======
-        mixer.music.play()
-<<<<<<< HEAD
-=======
-    
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
->>>>>>> 7c06d86b3d4bef92d6c12b0f04095e9a6f19a60c
     """ for carro in all_carros:    
         hits = pygame.sprite.spritecollide(carro, all_carros, True)
         for hit in hits:
@@ -447,31 +439,34 @@ while game:
                 carro.speedx = 5
                 hit.speedx = 5
  """
-<<<<<<< HEAD
-    
-    all_sprites.draw(window)
-=======
-   
+    if nivel1 == 5 and player.rect.top <= 0:
+        with open('lideres.txt', 'wt') as placar:
+            if len(pla) > 0:
+                if tempo_em_s < int(pla):  
+                    placar.write(str(tempo_em_s))
+            else:
+                placar.write(str(tempo_em_s))
+        window.blit(fim,(0,HEIGHT/2))
+        game = False
     
     all_sprites.draw(window)
     
 
 
   
->>>>>>> 03c097f60fd85aa44c49441b1f2bf35774705f68
     window.blit(tempo_v, (0,0))
     window.blit(nivel, (0,30))
+    if len(pla) > 0:
+        window.blit(melhor_temp, (0,60))
     if mort <= 150 and mort != 0:
         window.blit(tem_m, (10,HEIGHT/2))
         mort -= 1
 
     pygame.display.update()
+
     tempo_vivo += 1
+
     if sapo_y == 0:
         sapo_y = sapo_y_initial
-leaderboard = {}
-with open('lideres.txt', 'r') as placar:
-    pla = placar.readlines()
-with open('lideres.txt', 'w') as documento:
-    documento.writelines(leaderboard)
+
 pygame.quit()
