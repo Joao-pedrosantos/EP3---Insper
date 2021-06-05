@@ -259,9 +259,10 @@ assets['Spawnx'] = [
 assets['sound effects'] = [
     
 ]
-""" mixer.music.load('frogger/musica/Pitfall.mp3')
+pit = 'frogger/musica/Pitfall.mp3'
+mixer.music.load(pit)
 mixer.music.set_volume(0.01)
-mixer.music.play(-1) """
+mixer.music.play(-1)
 
 """ moeda = []
 path = "frogger/assets/img"
@@ -418,27 +419,30 @@ while game:
     if len(hit) > 0:
         mort = 150
         player.matar()
-        """ mixer.music.load('frogger/musica/mf.mp3')
+        mixer.music.pause()
+        mixer.music.load('frogger/musica/mf.mp3')
         mixer.music.set_volume(0.1)
-        mixer.music.play() """
+        
+        mixer.music.play() 
+        mixer.music.unpause()
     
-
 
     hit = pygame.sprite.spritecollide(player, all_barcos, True)
 
     if len(hit) > 0:
         mort = 150
         player.matar()
-        """ mixer.music.load('frogger/musica/mf.mp3')
+        mixer.music.load('frogger/musica/mf.mp3')
         mixer.music.set_volume(0.1)
-        mixer.music.play() """
-    """ for carro in all_carros:    
-        hits = pygame.sprite.spritecollide(carro, all_carros, True)
-        for hit in hits:
-            if carro.id != hit.id:
-                carro.speedx = 5
-                hit.speedx = 5
- """
+        mixer.music.play() 
+       
+        #for carro in all_carros:    
+        #hits = pygame.sprite.spritecollide(carro, all_carros, True)
+        #for hit in hits:
+            #if carro.id != hit.id:
+                #carro.speedx = 5
+                #hit.speedx = 5
+ 
     if nivel1 == 5 and player.rect.top <= 0:
         with open('lideres.txt', 'wt') as placar:
             if len(pla) > 0:
