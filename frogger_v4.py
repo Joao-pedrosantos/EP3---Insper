@@ -262,7 +262,6 @@ assets['sound effects'] = [
 pit = 'frogger/musica/Pitfall.mp3'
 mixer.music.load(pit)
 mixer.music.set_volume(0.01)
-mixer.music.play(-1)
 
 """ moeda = []
 path = "frogger/assets/img"
@@ -328,6 +327,7 @@ dificuldade = 1
 mort = 151
 #comeca jogo
 while game:
+    pygame.mixer.music.play(loops=-1)
     while len(all_moedas) != nivel1:
         moedinha = Moedas(moeda)
         all_moedas.add(moedinha)
@@ -457,7 +457,7 @@ while game:
     
 
 
-  
+
     window.blit(tempo_v, (0,0))
     window.blit(nivel, (0,30))
     if len(pla) > 0:
