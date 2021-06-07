@@ -1,5 +1,6 @@
 Corrida da galinha!
 Jogo estilo Frogger que faz o placar de líderes com base no tempo.
+Jogo localizado no <<Corrida_das_Galinhas.py>>
 
 Patch 1.2:
 
