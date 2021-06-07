@@ -221,6 +221,7 @@ assets['Barco'] = [
 barco_small   
 ]
 
+botao_img = pygame.image.load('frogger/assets/img/tela_de_inicio.png').convert()
 background1 = pygame.image.load('frogger/assets/img/background_nivel1.png').convert()
 background2 = pygame.image.load('frogger/assets/img/background_nivel2.png').convert()
 background3 = pygame.image.load('frogger/assets/img/background_nivel3.png').convert()
@@ -230,6 +231,7 @@ backgroundfinal = pygame.image.load('frogger/assets/img/backf1.png').convert()
 
 
 assets['Background'] = [
+botao_img,
 background1,
 background2,
 background3,
@@ -422,7 +424,10 @@ while game:
     # Atualizando a posição do meteoro
     window.fill((0, 0, 0))  # Preenche com a cor branca
     window.blit(assets['Background'][nivel1 - 1], (0, 0))
-  
+    if nivel1 - 1 == 0:
+        enter = str(input())
+
+    
     all_sprites.update()
 
 
