@@ -1,5 +1,6 @@
 Corrida da galinha!
 Jogo estilo Frogger que faz o placar de líderes com base no tempo.
+
 Patch 1.0:
 
 Correções de bugs:
