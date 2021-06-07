@@ -323,7 +323,7 @@ with open('lideres.txt', 'rt') as placar:
     
 tempo_vivo = 0
 tempo_em_s = 0
-nivel1 = 1
+nivel1 = 0
 dificuldade = 1
 mort = 151
 #comeca jogo
@@ -375,7 +375,10 @@ while game:
                 mort = 151
                 player.rect.centerx = WIDTH / 2
                 player.rect.bottom = HEIGHT - 10
-    
+            if event.key == pygame.K_RETURN:
+                nivel1 = 1
+                tempo_vivo = 0
+                tempo_em_s = 0
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -397,14 +400,14 @@ while game:
 
     #if dificuldade ==5:
       #  difc = 25
-    if nivel1 != 6:
-        while len(all_carros) < 1:
+    if nivel1 != 6 and nivel1 != 0:
+        while len(all_carros) < difc:
             carrinho = Carros(assets,nivel1)
             all_carros.add(carrinho)
             all_sprites.add(carrinho)
 
         if nivel1 > 1:
-            while len(all_barcos) < 1:#2 * dificuldade:
+            while len(all_barcos) < 2 * dificuldade:
                 barcin = Barcos(assets,nivel1)
                 all_barcos.add(barcin)
                 all_sprites.add(barcin)
@@ -423,9 +426,11 @@ while game:
     
     # Atualizando a posição do meteoro
     window.fill((0, 0, 0))  # Preenche com a cor branca
-    window.blit(assets['Background'][nivel1 - 1], (0, 0))
-    if nivel1 - 1 == 0:
-        enter = str(input())
+    if nivel1 == 0:
+        window.blit(assets['Background'][0], (0, 0))
+    else:
+        window.blit(assets['Background'][nivel1], (0, 0))
+    
 
     
     all_sprites.update()
