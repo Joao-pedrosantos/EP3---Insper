@@ -154,7 +154,7 @@ class Barcos(pygame.sprite.Sprite):
             self.kill()
 
 class Galinha(pygame.sprite.Sprite):
-    def __init__(self, img):
+    def __init__(self, img,nivel):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = img
@@ -287,13 +287,13 @@ sapo_img = pygame.image.load('frogger/assets/img/galinha.png').convert_alpha()
 
 sapo_img_small = pygame.transform.scale(sapo_img, (sapo_width, sapo_height))
 lgalinha = sapo_img_small
-
-
+nivel1 = 0
+player = Galinha(lgalinha,nivel1)
 clock = pygame.time.Clock()
 
 FPS = 30
 
-player = Galinha(lgalinha)
+
 all_sprites = pygame.sprite.Group()
 all_carros = pygame.sprite.Group()
 all_barcos = pygame.sprite.Group()
@@ -323,13 +323,14 @@ with open('lideres.txt', 'rt') as placar:
     
 tempo_vivo = 0
 tempo_em_s = 0
-nivel1 = 0
+
 dificuldade = 1
 mort = 151
 #comeca jogo
-pit = 'frogger/musica/Pitfall.mp3'
+
+pit = 'frogger/musica/mus.mp3'
 mixer.music.load(pit)
-mixer.music.set_volume(0.01)
+mixer.music.set_volume(0.3)
 mixer.music.play(-1)
 while game:
     
@@ -355,19 +356,22 @@ while game:
         if event.type == pygame.QUIT:
             game = False
         # Verifica se apertou alguma tecla.
-    
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+        if event.type == pygame.KEYDOWN:  
+            if event.key == pygame.K_RETURN:
+                nivel1 = 1
+                tempo_vivo = 0
+                tempo_em_s = 0
+            if event.key == pygame.K_LEFT and nivel1 > 0:
                 player.vx -= sapo_width/2
 
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT and nivel1 > 0:
                 player.vx += sapo_width/2
 
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and nivel1 > 0:
                 player.vy -= sapo_height/2
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN and nivel1 > 0:
                 player.vy += sapo_height/2
-            if event.key == pygame.K_r:
+            if event.key == pygame.K_r and nivel1 > 0:
                 tempo_vivo = 0
                 tempo_em_s = 0
                 nivel1 = 1
@@ -375,21 +379,21 @@ while game:
                 mort = 151
                 player.rect.centerx = WIDTH / 2
                 player.rect.bottom = HEIGHT - 10
-            if event.key == pygame.K_RETURN:
-                nivel1 = 1
-                tempo_vivo = 0
-                tempo_em_s = 0
-        # Verifica se soltou alguma tecla.
+                pla = ''
+                with open('lideres.txt', 'rt') as placar:
+                    pla = placar.readline()
+        
+                	# Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and nivel1 > 0:
                 player.vx = 0
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT and nivel1 > 0:
                 player.vx = 0
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and nivel1 > 0:
                 player.vy = 0 
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN and nivel1 > 0:
                 player.vy = 0 
-    
+
     if dificuldade == 1:
         difc = 5
     else:
@@ -398,8 +402,6 @@ while game:
     if difc > 25:
         difc = 25
 
-    #if dificuldade ==5:
-      #  difc = 25
     if nivel1 != 6 and nivel1 != 0:
         while len(all_carros) < difc:
             carrinho = Carros(assets,nivel1)
@@ -442,21 +444,21 @@ while game:
     if len(hit) > 0:
         mort = 150
         player.matar()
-        mixer.music.pause()
         
         ms = pygame.mixer.Sound('frogger/musica/mf.mp3')
-        
+        ms.set_volume(0.15)
         ms.play()
-        mixer.music.unpause()
+        
+        
 
     hit = pygame.sprite.spritecollide(player, all_barcos, True)
 
     if len(hit) > 0:
         mort = 150
         player.matar()
-        mixer.music.load('frogger/musica/mf.mp3')
-        
-        mixer.music.play() 
+        ms = pygame.mixer.Sound('frogger/musica/mf.mp3')
+        ms.set_volume(0.15)
+        ms.play() 
        
         #for carro in all_carros:    
         #hits = pygame.sprite.spritecollide(carro, all_carros, True)
@@ -472,7 +474,6 @@ while game:
                     placar.write(str(tempo_em_s))
             else:
                 placar.write(str(tempo_em_s))
-        #player.kill()
         window.blit(assets['Background'][5], (0, 0))
         window.blit(fim,(0,HEIGHT/2))
         
