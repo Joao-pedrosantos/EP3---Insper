@@ -1,43 +1,73 @@
 import pygame
 import os
-from config import METEOR_WIDTH, METEOR_HEIGHT, SHIP_WIDTH, SHIP_HEIGHT, IMG_DIR, SND_DIR, FNT_DIR
+from cfg import *
+from pygame import mixer
 
 
-BACKGROUND = 'background'
-METEOR_IMG = 'meteor_img'
-METEOR_IMG = 'meteor_img'
-SHIP_IMG = 'ship_img'
-SHIP_IMG = 'ship_img'
-BULLET_IMG = 'bullet_img'
-EXPLOSION_ANIM = 'explosion_anim'
-SCORE_FONT = 'score_font'
-BOOM_SOUND = 'boom_sound'
-DESTROY_SOUND = 'destroy_sound'
-PEW_SOUND = 'pew_sound'
-
-
-def load_assets():
+def assets():
     assets = {}
-    assets[BACKGROUND] = pygame.image.load(os.path.join(IMG_DIR, 'starfield.png')).convert()
-    assets[METEOR_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'meteorBrown_med1.png')).convert_alpha()
-    assets[METEOR_IMG] = pygame.transform.scale(assets['meteor_img'], (METEOR_WIDTH, METEOR_HEIGHT))
-    assets[SHIP_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'playerShip1_orange.png')).convert_alpha()
-    assets[SHIP_IMG] = pygame.transform.scale(assets['ship_img'], (SHIP_WIDTH, SHIP_HEIGHT))
-    assets[BULLET_IMG] = pygame.image.load(os.path.join(IMG_DIR, 'laserRed16.png')).convert_alpha()
-    explosion_anim = []
-    for i in range(9):
-        # Os arquivos de animação são numerados de 00 a 08
-        filename = os.path.join(IMG_DIR, 'regularExplosion0{}.png'.format(i))
-        img = pygame.image.load(filename).convert()
-        img = pygame.transform.scale(img, (32, 32))
-        explosion_anim.append(img)
-    assets[EXPLOSION_ANIM] = explosion_anim
-    assets[SCORE_FONT] = pygame.font.Font(os.path.join(FNT_DIR, 'PressStart2P.ttf'), 28)
+    carro_verm = pygame.image.load('frogger/assets/img/carro_verm.png').convert_alpha()
+    carro_verd = pygame.image.load('frogger/assets/img/carro_verd.png').convert_alpha()
+    carro_azul = pygame.image.load('frogger/assets/img/carro_azul.png').convert_alpha()
+    batmovel = pygame.image.load('frogger/assets/img/batmovel.png').convert_alpha()
+    barco = pygame.image.load('frogger/assets/img/barquinho.png').convert_alpha()
+    moeda = pygame.image.load('frogger/assets/img/moneda.png').convert_alpha()
 
-    # Carrega os sons do jogo
-    pygame.mixer.music.load(os.path.join(SND_DIR, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
-    pygame.mixer.music.set_volume(0.4)
-    assets[BOOM_SOUND] = pygame.mixer.Sound(os.path.join(SND_DIR, 'expl3.wav'))
-    assets[DESTROY_SOUND] = pygame.mixer.Sound(os.path.join(SND_DIR, 'expl6.wav'))
-    assets[PEW_SOUND] = pygame.mixer.Sound(os.path.join(SND_DIR, 'pew.wav'))
+    #png pequena
+    carro_verm_small = pygame.transform.scale(carro_verm, (carro_width, carro_height))   
+    carro_verd_small = pygame.transform.scale(carro_verd, (carro_width, carro_height))
+    carro_azul_small = pygame.transform.scale(carro_azul, (carro_width, carro_height))
+    batmovel_small = pygame.transform.scale(batmovel, (carro_width, carro_height))
+    barco_small = pygame.transform.scale(barco, (barco_width, barco_height))
+
+    assets['Carros'] = [
+    carro_verm_small,
+    carro_verd_small,
+    carro_azul_small,
+    batmovel_small
+    ]
+
+    assets['Barco'] = [
+    barco_small   
+    ]
+
+    botao_img = pygame.image.load('frogger/assets/img/tela_de_inicio.png').convert()
+    background1 = pygame.image.load('frogger/assets/img/background_nivel1.png').convert()
+    background2 = pygame.image.load('frogger/assets/img/background_nivel2.png').convert()
+    background3 = pygame.image.load('frogger/assets/img/background_nivel3.png').convert()
+    background4 = pygame.image.load('frogger/assets/img/background_nivel4.png').convert()
+    background5 = pygame.image.load('frogger/assets/img/background_nivel5.png').convert()
+    backgroundfinal = pygame.image.load('frogger/assets/img/backf1.png').convert()
+
+
+    assets['Background'] = [
+    botao_img,
+    background1,
+    background2,
+    background3,
+    background4,
+    background5,
+    backgroundfinal    
+    ]
+
+    assets['Spawnybarc'] = [
+    750,
+    450,
+    300    
+    ]
+
+    assets['Spawny'] = [
+    300,
+    160,
+    15,
+    600,
+    750,
+    450
+    ]
+
+    assets['Spawnx'] = [
+    -50,
+    800    
+    ]
     return assets
+
