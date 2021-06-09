@@ -2,32 +2,17 @@ from typing import get_origin
 import pygame
 from random import *
 from pygame import mixer
-import os
-from os import path
+from assets import *
+from cfg import *
+
 pygame.init()
 pygame.mixer.init()
 
-sapo_width = 50
-sapo_height = 60
-
-carro_width = 100
-carro_height = 80
-barco_width = 150
-barco_height = 80
-
-WIDTH = 750
-HEIGHT = 1000
 
 
 
 #Classes
-class Moedas(pygame.sprite.Sprite):
-    def __init__(self,img):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = randint((WIDTH - 20), (WIDTH + 20))
-        self.rect.y = randint((HEIGHT - 50), (HEIGHT + 50))
+
 
 class Carros(pygame.sprite.Sprite):
     
@@ -195,86 +180,9 @@ font = pygame.font.SysFont(None, 48)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('CUIDADO COM OS CARROS!!!')
 
-assets = {}
-carro_verm = pygame.image.load('frogger/assets/img/carro_verm.png').convert_alpha()
-carro_verd = pygame.image.load('frogger/assets/img/carro_verd.png').convert_alpha()
-carro_azul = pygame.image.load('frogger/assets/img/carro_azul.png').convert_alpha()
-batmovel = pygame.image.load('frogger/assets/img/batmovel.png').convert_alpha()
-barco = pygame.image.load('frogger/assets/img/barquinho.png').convert_alpha()
-#jet_ski = pygame.image.load('frogger/assets/img/jetski.png').convert_alpha()
-moeda = pygame.image.load('frogger/assets/img/moneda.png').convert_alpha()
-#png pequena
-carro_verm_small = pygame.transform.scale(carro_verm, (carro_width, carro_height))   
-carro_verd_small = pygame.transform.scale(carro_verd, (carro_width, carro_height))
-carro_azul_small = pygame.transform.scale(carro_azul, (carro_width, carro_height))
-batmovel_small = pygame.transform.scale(batmovel, (carro_width, carro_height))
-barco_small = pygame.transform.scale(barco, (barco_width, barco_height))
-
-assets['Carros'] = [
-carro_verm_small,
-carro_verd_small,
-carro_azul_small,
-batmovel_small
-]
-
-assets['Barco'] = [
-barco_small   
-]
-
-botao_img = pygame.image.load('frogger/assets/img/tela_de_inicio.png').convert()
-background1 = pygame.image.load('frogger/assets/img/background_nivel1.png').convert()
-background2 = pygame.image.load('frogger/assets/img/background_nivel2.png').convert()
-background3 = pygame.image.load('frogger/assets/img/background_nivel3.png').convert()
-background4 = pygame.image.load('frogger/assets/img/background_nivel4.png').convert()
-background5 = pygame.image.load('frogger/assets/img/background_nivel5.png').convert()
-backgroundfinal = pygame.image.load('frogger/assets/img/backf1.png').convert()
 
 
-assets['Background'] = [
-botao_img,
-background1,
-background2,
-background3,
-background4,
-background5,
-backgroundfinal    
-]
 
-assets['Spawnybarc'] = [
-750,
-450,
-300    
-]
-
-assets['Spawny'] = [
-300,
-160,
-15,
-600,
-750,
-450
-]
-
-assets['Spawnx'] = [
--50,
-800    
-]
-
-assets['sound effects'] = [
-    
-]
-
-""" moeda = []
-path = "frogger/assets/img"
-for i in range(6):
-    filename = os.path.join(path, "moeda{0}".format(i))
-    fotita = pygame.image.load(filename).convert()
-    fueto = pygame.transform.scale(fotita, (32, 32))
-    moeda.append(fueto) """
-assets["Moeda"] = [
-#fotita
-moeda
-]
 sapo_y_initial = (HEIGHT - sapo_height + 20)
 sapo_x = (WIDTH-sapo_width) / 2
 sapo_y = sapo_y_initial
@@ -310,7 +218,7 @@ groups['all_players'] = all_players
 groups['all_moedas'] = all_moedas
 game = True
 
-
+assets = assets()
 
 font = pygame.font.SysFont(None, 48)
 
@@ -342,7 +250,7 @@ while game:
         melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
     
     fim = font.render('Você levou {0} segundos!'.format(tempo_em_s), True, (255,0,0))
-    if tempo_vivo == FPS:
+    if tempo_vivo == FPS and nivel1 != 0:
         tempo_em_s += 1
         tempo_vivo = 0
     
@@ -446,7 +354,7 @@ while game:
         player.matar()
         
         ms = pygame.mixer.Sound('frogger/musica/mf.mp3')
-        ms.set_volume(0.15)
+        ms.set_volume(0.3)
         ms.play()
         
         
@@ -457,7 +365,7 @@ while game:
         mort = 150
         player.matar()
         ms = pygame.mixer.Sound('frogger/musica/mf.mp3')
-        ms.set_volume(0.15)
+        ms.set_volume(0.3)
         ms.play() 
        
         #for carro in all_carros:    
@@ -470,10 +378,16 @@ while game:
     if nivel1 == 5 and player.rect.top <= 0:
         with open('lideres.txt', 'wt') as placar:
             if len(pla) > 0:
+                placar.write(str(pla))
                 if tempo_em_s < int(pla):  
-                    placar.write(str(tempo_em_s))
+                    placar.write(str(tempo_em_s))     
             else:
                 placar.write(str(tempo_em_s))
+        pla = ''
+        with open('lideres.txt', 'rt') as placar:
+            pla = placar.readline()
+        if len(pla) > 0:
+            melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
         window.blit(assets['Background'][5], (0, 0))
         window.blit(fim,(0,HEIGHT/2))
         
