@@ -3,23 +3,24 @@ import os
 from cfg import *
 from pygame import mixer
 
-
 def assets():
     assets = {}
+    
     carro_verm = pygame.image.load('frogger/assets/img/carro_verm.png').convert_alpha()
     carro_verd = pygame.image.load('frogger/assets/img/carro_verd.png').convert_alpha()
     carro_azul = pygame.image.load('frogger/assets/img/carro_azul.png').convert_alpha()
     batmovel = pygame.image.load('frogger/assets/img/batmovel.png').convert_alpha()
     barco = pygame.image.load('frogger/assets/img/barquinho.png').convert_alpha()
-    moeda = pygame.image.load('frogger/assets/img/moneda.png').convert_alpha()
-
+    sapo_img = pygame.image.load('frogger/assets/img/galinha.png').convert_alpha()
+    sapo_img_small = pygame.transform.scale(sapo_img, (sapo_width, sapo_height))
+    
     #png pequena
     carro_verm_small = pygame.transform.scale(carro_verm, (carro_width, carro_height))   
     carro_verd_small = pygame.transform.scale(carro_verd, (carro_width, carro_height))
     carro_azul_small = pygame.transform.scale(carro_azul, (carro_width, carro_height))
     batmovel_small = pygame.transform.scale(batmovel, (carro_width, carro_height))
     barco_small = pygame.transform.scale(barco, (barco_width, barco_height))
-
+    
     assets['Carros'] = [
     carro_verm_small,
     carro_verd_small,
@@ -38,7 +39,10 @@ def assets():
     background4 = pygame.image.load('frogger/assets/img/background_nivel4.png').convert()
     background5 = pygame.image.load('frogger/assets/img/background_nivel5.png').convert()
     backgroundfinal = pygame.image.load('frogger/assets/img/backf1.png').convert()
-
+    
+    assets['Galinha'] = [ 
+    sapo_img_small
+    ]
 
     assets['Background'] = [
     botao_img,

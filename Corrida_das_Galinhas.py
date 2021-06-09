@@ -1,9 +1,9 @@
 from typing import get_origin
 import pygame
-from random import *
-from pygame import mixer
+from random import randint
 from assets import *
 from cfg import *
+from classes import *
 
 pygame.init()
 pygame.mixer.init()
@@ -19,14 +19,10 @@ font = pygame.font.SysFont(None, 48)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('CUIDADO COM OS CARROS!!!')
 
-sapo_y_initial = (HEIGHT - sapo_height + 20)
-sapo_x = (WIDTH-sapo_width) / 2
-sapo_y = sapo_y_initial
-sapo_img = pygame.image.load('frogger/assets/img/galinha.png').convert_alpha()
-sapo_img_small = pygame.transform.scale(sapo_img, (sapo_width, sapo_height))
-lgalinha = sapo_img_small
 nivel1 = 0
-player = Galinha(lgalinha,nivel1)
+assets = assets()
+
+player = Galinha(assets['Galinha'][0],nivel1,assets)
 clock = pygame.time.Clock()
 FPS = 30
 all_sprites = pygame.sprite.Group()
@@ -43,7 +39,7 @@ groups['all_players'] = all_players
 groups['all_moedas'] = all_moedas
 game = True
 
-assets = assets()
+
 
 font = pygame.font.SysFont(None, 48)
 keys_down = {}
@@ -59,6 +55,7 @@ pit = 'frogger/musica/mus.mp3'
 mixer.music.load(pit)
 mixer.music.set_volume(0.3)
 mixer.music.play(-1)
+
 while game:
     tempo_v = font.render('{0}s'.format(tempo_em_s), True, (255, 255, 255))
     nivel = font.render('Nível {0}'.format(nivel1), True, (0,0,255))
@@ -166,16 +163,17 @@ while game:
     if nivel1 == 5 and player.rect.top <= 0:
         with open('lideres.txt', 'wt') as placar:
             if len(pla) > 0:
-                placar.write(str(pla))
                 if tempo_em_s < int(pla):  
-                    placar.write(str(tempo_em_s))     
+                    pla = str(tempo_em_s)
             else:
-                placar.write(str(tempo_em_s))
-        pla = ''
-        with open('lideres.txt', 'rt') as placar:
-            pla = placar.readline()
+                pla = str(tempo_em_s)
+            placar.write(pla)
+        # pla = ''        
+        # with open('lideres.txt', 'rt') as placar:
+        #     pla = placar.readline()
         if len(pla) > 0:
             melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
+
         window.blit(assets['Background'][5], (0, 0))
         window.blit(fim,(0,HEIGHT/2))
     all_sprites.draw(window)

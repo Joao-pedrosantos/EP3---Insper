@@ -1,12 +1,10 @@
 #Classes
 from typing import get_origin
 import pygame
-from random import *
+from random import randint
 from pygame import mixer
-from Corrida_das_Galinhas import HEIGHT
-from Corrida_das_Galinhas import WIDTH
-from Corrida_das_Galinhas import assets
-from Corrida_das_Galinhas import sapo_img_small
+from cfg import *
+
 
 
 class Carros(pygame.sprite.Sprite):
@@ -117,7 +115,9 @@ class Barcos(pygame.sprite.Sprite):
         if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH + 80:
             self.kill()
 class Galinha(pygame.sprite.Sprite):
-    def __init__(self, img,nivel):
+    galinha_img = 0
+
+    def __init__(self, img,nivel,assets):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
@@ -127,16 +127,19 @@ class Galinha(pygame.sprite.Sprite):
         self.vx = 0
         self.assets = assets
         self.morta = 0
+        self.galinha_img = img
+        
     def matar(self):
         self.morta = 150
+
     def update(self):
         if self.morta <= 0:    
             self.rect.x += self.vx//3
             self.rect.y -= -(self.vy/3)
             if self.vx > 0:
-                self.image = pygame.transform.flip(sapo_img_small, False, False)
+                self.image = pygame.transform.flip(self.galinha_img, False, False)
             elif self.vx < 0:
-                self.image = pygame.transform.flip(sapo_img_small, True, False)
+                self.image = pygame.transform.flip(self.galinha_img, True, False)
             if self.rect.bottom > HEIGHT:
                 self.rect.bottom = HEIGHT
             if self.rect.right > WIDTH:
