@@ -3,6 +3,12 @@ from typing import get_origin
 import pygame
 from random import *
 from pygame import mixer
+from Corrida_das_Galinhas import HEIGHT
+from Corrida_das_Galinhas import WIDTH
+from Corrida_das_Galinhas import assets
+from Corrida_das_Galinhas import sapo_img_small
+
+
 class Carros(pygame.sprite.Sprite):
     def __init__(self, assets, nivel1):
         # Construtor da classe mãe (Sprite).
