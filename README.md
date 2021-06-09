@@ -3,7 +3,7 @@ Jogo estilo Frogger que faz o placar de líderes com base no tempo.
 Jogo localizado no <<Corrida_das_Galinhas.py>>
 Vídeo mostrando o jogo <<https://youtu.be/Vvf0lEOI3Js>>
 
-Patch 1.4:
+Patch 1.5:
 
 
 Correções de bugs:
@@ -14,7 +14,7 @@ Correções de bugs:
   - Placar de líderes atualiza sem ter que reiniciar o jogo
 - Tempo não conta antes do início do jogo
 - Removida falha durante leitura das leaderboards
-
+  - Definitivamente removida agora
 
 Novidades:
 - Placar de líderes agora marca o melhor tempo global
