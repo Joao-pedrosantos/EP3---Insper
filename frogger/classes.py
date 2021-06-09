@@ -1,4 +1,8 @@
 #Classes
+from typing import get_origin
+import pygame
+from random import *
+from pygame import mixer
 class Carros(pygame.sprite.Sprite):
     def __init__(self, assets, nivel1):
         # Construtor da classe mãe (Sprite).
