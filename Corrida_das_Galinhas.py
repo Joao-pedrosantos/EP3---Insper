@@ -255,7 +255,7 @@ while game:
     if len(pla) > 0:
         melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
     fim = font.render('Você levou {0} segundos!'.format(tempo_em_s), True, (255,0,0))
-    if tempo_vivo == FPS:
+    if tempo_vivo == FPS and nivel1 != 0:
         tempo_em_s += 1
         tempo_vivo = 0
     clock.tick(FPS)
@@ -355,10 +355,16 @@ while game:
     if nivel1 == 5 and player.rect.top <= 0:
         with open('lideres.txt', 'wt') as placar:
             if len(pla) > 0:
+                placar.write(str(pla))
                 if tempo_em_s < int(pla):  
-                    placar.write(str(tempo_em_s))
+                    placar.write(str(tempo_em_s))     
             else:
                 placar.write(str(tempo_em_s))
+        pla = ''
+        with open('lideres.txt', 'rt') as placar:
+            pla = placar.readline()
+        if len(pla) > 0:
+            melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
         window.blit(assets['Background'][5], (0, 0))
         window.blit(fim,(0,HEIGHT/2))
     all_sprites.draw(window)
