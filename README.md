@@ -26,8 +26,6 @@ Novidades:
 
 Feito por:
 - João Pedro Rodrigues dos Santos
-- Luiza Ferreira Ehrenberger
-- Pedro Deslandes Castanheira Hun
 
 
 Musicas e efeitos sonoros:
