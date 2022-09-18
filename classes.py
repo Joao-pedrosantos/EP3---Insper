@@ -13,12 +13,12 @@ class Nivel:
     def __init__(self):
         self.spawners_carro = [[160, 15, 600], [600,450,300,15],[750,600,300,15],[600,160]]
         self.spawners_barco = [[750,450,300],[750,160],[450,160],[750,450,300,15]]
-    def monta(assets,nivel):
-        i = 2
-        while i < nivel:
-            assets['Spawny'] = spawners_carro[i-2]
-            assets['Spawnybarc'] = spawners_barco[i-2]
-            i += 1
+        
+    def monta(self,assets,nivel):
+        self.config = assets    
+        self.config['Spawny'] = self.spawners_carro[nivel]
+        self.config['Spawnybarc'] = self.spawners_barco[nivel]
+          
         
 
 
@@ -26,23 +26,15 @@ class Carros(pygame.sprite.Sprite):
     def __init__(self, assets, nivel1):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-        spawn = Nivel()
-
-        spawn.monta(assets,nivel1,)
-        
-
+        teste = Nivel()
+        teste.monta(assets,nivel1)   
         self.image = assets['Carros'] [randint(0,len(assets['Carros'])-1)]
         self.id = randint(1,100000)
         self.rect = self.image.get_rect()
         self.rect.x = assets['Spawnx'] [randint(0,len(assets["Spawnx"])-1)]
-        
-        
-        
-        self.rect.y =    self.spawn[randint(0,len(assets["Spawny"])-1)]
-        
-        
-        
-        
+  
+        self.rect.y = teste.config["Spawny"][randint(0,len(assets["Spawny"])-1)]
+
         if self.rect.y == 750 or self.rect.y == 300 or self.rect.y == 160:
             self.speedx = randint(3, nivel1+10)
         else:
@@ -61,20 +53,17 @@ class Barcos(pygame.sprite.Sprite):
     def __init__(self, assets,nivel1):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-        assets['Spawnybarc'] = [
-        300,
-        160,
-        15,
-        600,
-        750,
-        450
-        ]
+
+
+
+        teste = Nivel()
+        teste.monta(assets,nivel1)
 
         self.image = assets['Barco'] [randint(0,len(assets['Barco'])-1)]
         self.id = randint(1,100000)
         self.rect = self.image.get_rect()
         self.rect.x = assets['Spawnx'] [randint(0,len(assets["Spawnx"])-1)]
-        self.rect.y = Nivel(assets,nivel1) [randint(0,len(assets["Spawnybarc"])-1)]
+        self.rect.y = teste.config["Spawnybarc"] [randint(0,len(assets["Spawnybarc"])-1)]
         if self.rect.y == 750 or self.rect.y == 300:
             self.speedx = randint(8, nivel1+14)
         else:
@@ -86,7 +75,7 @@ class Barcos(pygame.sprite.Sprite):
         self.rect.y += self.speedy
         if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH + 80:
             self.kill()
-            
+
 class Galinha(pygame.sprite.Sprite):
     galinha_img = 0
 
