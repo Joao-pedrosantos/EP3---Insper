@@ -29,17 +29,14 @@ all_sprites = pygame.sprite.Group()
 all_carros = pygame.sprite.Group()
 all_barcos = pygame.sprite.Group()
 all_players = pygame.sprite.Group()
-all_moedas = pygame.sprite.Group()
 all_sprites.add(player)
+
 groups = {}
 groups['all_sprites'] = all_sprites
 groups['all_carros'] = all_carros
 groups['all_barcos'] = all_barcos
 groups['all_players'] = all_players
-groups['all_moedas'] = all_moedas
 game = True
-
-
 
 font = pygame.font.SysFont(None, 48)
 keys_down = {}
