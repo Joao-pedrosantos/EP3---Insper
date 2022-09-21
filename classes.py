@@ -1,54 +1,31 @@
 #Classes
-from typing import get_origin
 import pygame
 from random import randint
-from pygame import mixer
 from cfg import *
 
-
+class Nivel:
+    def __init__(self):
+        self.spawners_carro = [[160, 15, 600], [600,450,300,15],[750,600,300,15],[600,160]]
+        self.spawners_barco = [[750,450,300],[750,160],[450,160],[750,450,300,15]]
+        
+    def monta(self,assets,nivel):
+        self.config = assets    
+        self.config['Spawny'] = self.spawners_carro[nivel-2]
+        self.config['Spawnybarc'] = self.spawners_barco[nivel-2]
 
 class Carros(pygame.sprite.Sprite):
     def __init__(self, assets, nivel1):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-        assets['Spawny'] = [
-        300,
-        160,
-        15,
-        600,
-        750,
-        450
-        ]
+        teste = Nivel()
+        teste.monta(assets,nivel1)   
         self.image = assets['Carros'] [randint(0,len(assets['Carros'])-1)]
         self.id = randint(1,100000)
         self.rect = self.image.get_rect()
-        if nivel1 == 2:
-            assets['Spawny'] = [
-            160,
-            15,
-            600,
-            ]
-        elif nivel1 == 3:
-            assets['Spawny'] = [
-            600,
-            450,
-            300,
-            15
-            ]
-        elif nivel1 == 4:
-            assets['Spawny'] = [
-            750,
-            600,
-            300,
-            15
-            ]
-        elif nivel1 ==5:
-            assets["Spawny"] = [ 
-            600,
-            160
-            ]
         self.rect.x = assets['Spawnx'] [randint(0,len(assets["Spawnx"])-1)]
-        self.rect.y = assets['Spawny'] [randint(0,len(assets["Spawny"])-1)]
+  
+        self.rect.y = teste.config["Spawny"][randint(0,len(assets["Spawny"])-1)]
+
         if self.rect.y == 750 or self.rect.y == 300 or self.rect.y == 160:
             self.speedx = randint(3, nivel1+10)
         else:
@@ -67,42 +44,15 @@ class Barcos(pygame.sprite.Sprite):
     def __init__(self, assets,nivel1):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-        assets['Spawnybarc'] = [
-        300,
-        160,
-        15,
-        600,
-        750,
-        450
-        ]
-        if nivel1 == 2:
-            assets['Spawnybarc'] = [
-            750,
-            450,
-            300
-            ]
-        elif nivel1 == 3:
-            assets['Spawnybarc'] = [
-            750,
-            160
-            ]
-        elif nivel1 == 4:
-            assets['Spawnybarc'] = [
-            450,
-            160
-            ]
-        elif nivel1 == 5:
-            assets["Spawnybarc"] = [ 
-            750,
-            450,
-            300,
-            15
-            ]
+        
+        teste = Nivel()
+        teste.monta(assets,nivel1)
+
         self.image = assets['Barco'] [randint(0,len(assets['Barco'])-1)]
         self.id = randint(1,100000)
         self.rect = self.image.get_rect()
         self.rect.x = assets['Spawnx'] [randint(0,len(assets["Spawnx"])-1)]
-        self.rect.y = assets['Spawnybarc'] [randint(0,len(assets["Spawnybarc"])-1)]
+        self.rect.y = teste.config["Spawnybarc"] [randint(0,len(assets["Spawnybarc"])-1)]
         if self.rect.y == 750 or self.rect.y == 300:
             self.speedx = randint(8, nivel1+14)
         else:
@@ -114,6 +64,7 @@ class Barcos(pygame.sprite.Sprite):
         self.rect.y += self.speedy
         if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH + 80:
             self.kill()
+
 class Galinha(pygame.sprite.Sprite):
     galinha_img = 0
 

@@ -1,19 +1,10 @@
-from typing import get_origin
 import pygame
-from random import randint
 from assets import *
 from cfg import *
 from classes import *
 
 pygame.init()
 pygame.mixer.init()
-
-
-
-
-#Classes
-
-
 
 font = pygame.font.SysFont(None, 48)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -29,17 +20,14 @@ all_sprites = pygame.sprite.Group()
 all_carros = pygame.sprite.Group()
 all_barcos = pygame.sprite.Group()
 all_players = pygame.sprite.Group()
-all_moedas = pygame.sprite.Group()
 all_sprites.add(player)
+
 groups = {}
 groups['all_sprites'] = all_sprites
 groups['all_carros'] = all_carros
 groups['all_barcos'] = all_barcos
 groups['all_players'] = all_players
-groups['all_moedas'] = all_moedas
 game = True
-
-
 
 font = pygame.font.SysFont(None, 48)
 keys_down = {}
@@ -50,6 +38,7 @@ tempo_vivo = 0
 tempo_em_s = 0
 dificuldade = 1
 mort = 151
+
 #comeca jogo
 pit = 'frogger/musica/mus.mp3'
 mixer.music.load(pit)
@@ -96,7 +85,7 @@ while game:
                 pla = ''
                 with open('lideres.txt', 'rt') as placar:
                     pla = placar.readline()
-                    # Verifica se soltou alguma tecla.
+        # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT and nivel1 > 0:
                 player.vx = 0
@@ -132,9 +121,10 @@ while game:
         if len(all_barcos) > 1:
             for barco in all_barcos.sprites():
                 barco.kill()
+    
     # ----- Atualiza estado do jogo
-    # Atualizando a posição do meteoro
-    window.fill((0, 0, 0))  # Preenche com a cor branca
+
+    window.fill((0, 0, 0))
     if nivel1 == 0:
         window.blit(assets['Background'][0], (0, 0))
     else:
@@ -154,12 +144,7 @@ while game:
         ms = pygame.mixer.Sound('frogger/musica/mf.mp3')
         ms.set_volume(0.3)
         ms.play() 
-        #for carro in all_carros:    
-        #hits = pygame.sprite.spritecollide(carro, all_carros, True)
-        #for hit in hits:
-            #if carro.id != hit.id:
-                #carro.speedx = 5
-                #hit.speedx = 5
+
     if nivel1 == 5 and player.rect.top <= 0:
         with open('lideres.txt', 'wt') as placar:
             if len(pla) > 0:
@@ -168,9 +153,6 @@ while game:
             else:
                 pla = str(tempo_em_s)
             placar.write(pla)
-        # pla = ''        
-        # with open('lideres.txt', 'rt') as placar:
-        #     pla = placar.readline()
         if len(pla) > 0:
             melhor_temp = font.render('Melhor tempo: {0}s'.format(pla), True, (255,0,0))
 

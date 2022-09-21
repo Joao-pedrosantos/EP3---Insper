@@ -1,4 +1,3 @@
-import pygame	
 sapo_width = 50
 sapo_height = 60
 
