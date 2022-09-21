@@ -1,9 +1,6 @@
 #Classes
-from distutils.spawn import spawn
-from typing import get_origin
 import pygame
 from random import randint
-from pygame import mixer
 from cfg import *
 
 class Nivel:

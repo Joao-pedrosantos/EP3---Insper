@@ -1,6 +1,4 @@
-from typing import get_origin
 import pygame
-from random import randint
 from assets import *
 from cfg import *
 from classes import *
