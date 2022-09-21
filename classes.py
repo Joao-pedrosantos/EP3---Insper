@@ -6,21 +6,15 @@ from random import randint
 from pygame import mixer
 from cfg import *
 
-
-
 class Nivel:
-
     def __init__(self):
         self.spawners_carro = [[160, 15, 600], [600,450,300,15],[750,600,300,15],[600,160]]
         self.spawners_barco = [[750,450,300],[750,160],[450,160],[750,450,300,15]]
         
     def monta(self,assets,nivel):
         self.config = assets    
-        self.config['Spawny'] = self.spawners_carro[nivel]
-        self.config['Spawnybarc'] = self.spawners_barco[nivel]
-          
-        
-
+        self.config['Spawny'] = self.spawners_carro[nivel-2]
+        self.config['Spawnybarc'] = self.spawners_barco[nivel-2]
 
 class Carros(pygame.sprite.Sprite):
     def __init__(self, assets, nivel1):
@@ -53,9 +47,7 @@ class Barcos(pygame.sprite.Sprite):
     def __init__(self, assets,nivel1):
         # Construtor da classe mãe (Sprite).
         pygame.sprite.Sprite.__init__(self)
-
-
-
+        
         teste = Nivel()
         teste.monta(assets,nivel1)
 
